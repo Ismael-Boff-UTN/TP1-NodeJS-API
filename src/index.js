@@ -12,6 +12,11 @@ app.use(express.urlencoded({limit:'50mb'}));
 //CORS
 app.use(cors());
 
+
+//Welcome Route
+app.get("/", (_, res) => {
+    res.json({ message: "Welcome Stranger!" });
+  });
 //EndPoints Base
 app.use('/api/empresas',require('./routes/empresas'));//htpp://localhost:5000/api/empresas
 app.use('/api/noticias',require('./routes/noticias'));//htpp://localhost:5000/api/noticias

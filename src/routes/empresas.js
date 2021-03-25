@@ -1,18 +1,16 @@
 const express = require('express');
 const router = express.Router();
-
-//CRUD Empresas
-
 const mysqlConnection = require('../database/mysqlconnection');
 
+//CRUD Empresas
 //GET - SE OBTIENEN TODAS LAS EMPRESAS DE LA BASE DE DATOS
 router.get('/', (req, res) => {
     mysqlConnection.query('SELECT * FROM empresas', (error, rows, fields) => {
         if (!error) {
-            res.json(rows);
-            console.log('Datos Obtenidos Exitosamente');
+            res.json({message:'Empresas Obtenidas Con Exito!',rows});
+            console.log('Empresas Obtenidas Con Exito');
         } else {
-            console.log(error);
+            res.status(500).send({ error: `Error Al Obtener Empresas ${error}` })
         }
     });
 });
@@ -25,9 +23,9 @@ router.get('/:id', (req, res) => {
     mysqlConnection.query('SELECT * FROM empresas WHERE id_empresa = ?', [id], (error, rows, fields) => {
         if (!error) {
             res.json(rows[0]);
-            console.log('Datos Obtenidos Exitosamente');
+            console.log(`Empresa Obtenida Con Exito! ID Empresa : ${id}`);
         } else {
-            console.log(error);
+            res.status(500).send({ error: `Error Al Obtener Empresa Con ID : ${id}` });
         }
     });
 })
