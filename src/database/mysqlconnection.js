@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+require('dotenv').config()
 
 const mysqlConnection = mysql.createConnection({
 
@@ -7,13 +8,12 @@ const mysqlConnection = mysql.createConnection({
     //user: 'root',
     //password: '1234',
     //database: 'empresas_db'
-    host: 'sql10.freemysqlhosting.net',
-    port: '3306',
-    user: 'sql10400594',
-    password: 'y736ytKqLx',
-    database: 'sql10400594'
-
-})
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+});
 
 mysqlConnection.connect(function (error) {
     if (error) {
